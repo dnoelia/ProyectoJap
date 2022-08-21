@@ -1,3 +1,15 @@
+function mostrarProductosCategoria(categoria){
+  getJSONData(PRODUCTS_URL+categoria+EXT_TYPE)
+    .then(result =>{
+      if(result.status==="ok"){
+        mostrarProductos(result.data.products)
+      }
+      else{
+        alert("No se pudo cargar la categoria seleccionada")
+      }
+
+    })
+}
 function mostrarProductos(products){
     let productsListDiv = document.getElementById("products_list")
     for (let product of products){
@@ -15,7 +27,5 @@ function mostrarProductos(products){
     
 }
 window.addEventListener("load",function(){
-    fetch("https://japceibal.github.io/emercado-api/cats_products/101.json")
-        .then(response =>response.json())
-        .then(response=>mostrarProductos(response.products))
+    mostrarProductosCategoria(101);
 })
