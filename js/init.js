@@ -39,3 +39,7 @@ let getJSONData = function(url){
         return result;
     });
 }
+document.addEventListener("DOMContentLoaded", function(e){
+  let spanUsuario=document.getElementById("usuario")
+  spanUsuario.innerHTML=localStorage.getItem("email")
+})
