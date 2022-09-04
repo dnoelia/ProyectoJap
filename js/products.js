@@ -27,5 +27,5 @@ function mostrarProductos(products){
     
 }
 window.addEventListener("load",function(){
-    mostrarProductosCategoria(101);
+    mostrarProductosCategoria(localStorage.getItem("catID"))
 })
