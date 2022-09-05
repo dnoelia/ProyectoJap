@@ -39,6 +39,39 @@
     </div>
   </nav>
   <main class="pb-5 container">
+    <div class="row">
+      <div class="col text-end">
+        <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
+          <input type="radio" class="btn-check" name="options" id="precioAsc">
+          <label class="btn btn-light" for="precioAsc">$Asc</label>
+          <input type="radio" class="btn-check" name="options" id="precioDesc">
+          <label class="btn btn-light" for="precioDesc">$Desc</label>
+          <input type="radio" class="btn-check" name="options" id="relevanciaDesc">
+          <label class="btn btn-light" for="relevanciaDesc">Relevancia</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
+        <div class="row container p-0 m-0">
+          <div class="col">
+            <p class="font-weight-normal text-end my-2">Cant.</p>
+          </div>
+          <div class="col">
+            <input class="form-control" type="number" placeholder="min." id="filtroPrecioMin">
+          </div>
+          <div class="col">
+            <input class="form-control" type="number" placeholder="máx." id="filtroPrecioMax">
+          </div>
+          <div class="col-3 p-0">
+            <div class="btn-group" role="group">
+              <button class="btn btn-light btn-block" id="filtrarPrecio">Filtrar</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container" id="products_list">
     </div>
   </main>
