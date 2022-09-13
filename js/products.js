@@ -1,12 +1,6 @@
 let ordenarAscendente=true
- 
-
-
-
 let ordenarPorRelevancia=false
-
-let filtroMinimo=13500
-
+let filtroMinimo=undefined
 let filtroMaximo=undefined
 
 
@@ -21,6 +15,33 @@ function mostrarProductosCategoria(categoria){
       }
 
     })
+}
+
+function redirigirAProductInfo(productId){
+  localStorage.setItem("id Producto",productId)
+  window.location.href = "product-info.html"
+}
+
+function mostrarProductos(products){
+  let productsListDiv = document.getElementById("products_list")
+  let productosOrdenados=products
+    .filter((product)=>!(product.cost<filtroMinimo))
+    .filter((product)=>!(product.cost>filtroMaximo))
+    .sort(compararProductos)
+  productsListDiv.innerHTML=""
+  for (let product of productosOrdenados){
+      productsListDiv.innerHTML+=`
+        <div onclick="redirigirAProductInfo(${product.id})">
+          <h3>${product.name} ${product.currency} ${product.cost}</h3>
+          <span>${product.soldCount} Vendidos</span>
+          <p class="products_description">${product.description}</p>
+          <img src="${product.image}" class="products_img">
+
+        </div>
+      `
+
+  }
+  
 }
 
 function compararProductos(product1,product2){
@@ -46,30 +67,24 @@ function compararProductos(product1,product2){
     return 0
   }
 }
+
+document.getElementById("filtrarPrecio").addEventListener("click",()=>{
+  let minimo=document.getElementById("filtroPrecioMin").value
+  let maximo=document.getElementById("filtroPrecioMax").value
+  if(minimo===""){
+    filtroMinimo=undefined
+  }else{
+    filtroMinimo=minimo
+  }
+  if(maximo===""){
+    filtroMaximo=undefined
+  }else{
+    filtroMaximo=maximo
+  }
+  cargarProductos()
+})
+
    
-
-
-function mostrarProductos(products){
-    let productsListDiv = document.getElementById("products_list")
-    let productosOrdenados=products
-      .filter((product)=>!(product.cost<filtroMinimo))
-      .filter((product)=>!(product.cost>filtroMaximo))
-      .sort(compararProductos)
-    productsListDiv.innerHTML=""
-    for (let product of productosOrdenados){
-        productsListDiv.innerHTML+=`
-          <div>
-            <h3>${product.name} ${product.currency} ${product.cost}</h3>
-            <span>${product.soldCount} Vendidos</span>
-            <p class="products_description">${product.description}</p>
-            <img src="${product.image}" class="products_img">
-
-          </div>
-        `
-
-    }
-    
-}
 
 function cargarProductos(){
   mostrarProductosCategoria(localStorage.getItem("catID"))
@@ -92,19 +107,5 @@ window.addEventListener("load",function(){
       ordenarAscendente=false
       cargarProductos()
     })
-    document.getElementById("filtrarPrecio").addEventListener("click",()=>{
-      let minimo=document.getElementById("filtroPrecioMin").value
-      let maximo=document.getElementById("filtroPrecioMax").value
-      if(minimo===""){
-        filtroMinimo=undefined
-      }else{
-        filtroMinimo=minimo
-      }
-      if(maximo===""){
-        filtroMaximo=undefined
-      }else{
-        filtroMaximo=maximo
-      }
-      cargarProductos()
-    })
-})
+
+  })
