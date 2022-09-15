@@ -1,6 +1,34 @@
 getJSONData(PRODUCT_INFO_URL+ localStorage.getItem("id Producto")+EXT_TYPE)
     .then((json)=>mostrarProducto(json.data))
 
+getJSONData(PRODUCT_INFO_COMMENTS_URL+ localStorage.getItem("id Producto")+EXT_TYPE)
+    .then((json)=>mostrarComentarios(json.data))
+
+
+function mostrarComentarios(comentarios){
+  let divComentarios=document.getElementById("info-comentarios")
+  divComentarios.innerHTML="<h1>Comentarios</h1>"
+  for(let comentario of comentarios ){
+    let htmlEstrellas=""
+    for(let i=1; i<=5; i++){
+      let checked
+      if (i<=comentario.score){
+        checked="checked"
+      }else{
+        checked=""
+      }
+      htmlEstrellas+=`<span class="fa fa-star ${checked}"></span>`
+    }
+    divComentarios.innerHTML+= `
+    <span><strong>${comentario.user}-</strong>${comentario.dateTime}</span> 
+        ${htmlEstrellas}
+        <p>${comentario.description}</p>
+    `                                                                   
+  }
+ 
+}
+
+
 function mostrarProducto(product){
     let htmlImagenes=""
     for(let image of product.images){
